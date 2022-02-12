@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cuppazee/common/nav.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/widgets.dart' as widgets;
@@ -10,32 +8,11 @@ import 'package:flutter/material.dart' as material;
 import 'package:flutter/cupertino.dart' as cupertino;
 import 'package:cuppazee/common/common.dart' show Common;
 
-import '../main.dart';
-
 class BetterFluentPageRoute extends widgets.PageRoute {
   BetterFluentPageRoute({required this.builder, name})
       : super(settings: widgets.RouteSettings(name: name));
 
   final WidgetBuilder builder;
-
-  final Key key = fluent.GlobalKey();
-
-  // @override
-  // Widget buildTransitions(
-  //     fluent.BuildContext context,
-  //     fluent.Animation<double> animation,
-  //     fluent.Animation<double> secondaryAnimation,
-  //     fluent.Widget child) {
-  //   return fluent.EntrancePageTransition(
-  //     child: fluent.Container(child: child,
-  //       color: fluent.FluentTheme.of(context).scaffoldBackgroundColor,
-  //     ),
-  //     animation: CurvedAnimation(
-  //       parent: animation,
-  //       curve: fluent.FluentTheme.of(context).animationCurve,
-  //     ),
-  //   );
-  // }
 
   @override
   Color? get barrierColor => null;
@@ -46,42 +23,14 @@ class BetterFluentPageRoute extends widgets.PageRoute {
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation) {
-    // return Container(
-    //     color: fluent.FluentTheme.of(context).scaffoldBackgroundColor,
-    //     child: AnimatedSwitcher(
-    //       switchInCurve: fluent.FluentTheme.of(context)
-    //               .navigationPaneTheme
-    //               .animationCurve ??
-    //           Curves.linear,
-    //       duration: const Duration(milliseconds: 150),
-    //       layoutBuilder: (child, children) {
-    //         return SizedBox(child: child);
-    //       },
-    //       child:
-    // return SizedBox(
-    //   key: Key(Random().nextInt(100000).toString()),
-    //   child: builder(context),
-    // );
     return builder(context);
-    //   transitionBuilder: (child, animation) {
-    //     return fluent.EntrancePageTransition(
-    //       child: child,
-    //       animation: animation,
-    //     );
-    //   },
-    // ));
   }
 
   @override
   bool get maintainState => true;
 
   @override
-  Duration get transitionDuration => const Duration(milliseconds: 150);
-
-// @override
-// Animation<double> createAnimation(context) {
-//   return NavigationPaneTheme.of(context).animationCurve;
-// }
+  Duration get transitionDuration => const Duration(milliseconds: 0);
 }
 
 class PageRoute {
@@ -186,15 +135,6 @@ class _PageState extends State<Page> {
                       key: ValueKey(state),
                       child: widget.child,
                     ),
-                    // child: SizedBox(
-                    //   key: Key((widget.child as Navigator).restorationScopeId.hashCode.toString()),
-                    //   child: widget.child,
-                    //   // child: Text((widget.child as Navigator).restorationScopeId.hashCode.toString() ?? ),
-                    // ),
-                    // child: SizedBox(
-                    // key: Key(widget.child.key.toString() + "-"),
-                    // child: Text(widget.child.key.hashCode.toString()),
-                    // ),
                     transitionBuilder: (child, animation) {
                       return fluent.EntrancePageTransition(
                         child: child,
@@ -204,23 +144,6 @@ class _PageState extends State<Page> {
                   ));
             },
           ));
-      // content: fluent.NavigationBody(
-      //   children: [widget.child, widget.child],
-      //   transitionBuilder: (child, animation) {
-      //     return fluent.EntrancePageTransition(
-      //       child: child,
-      //       animation: animation,
-      //     );
-      //   },
-      //   index: index,
-      // ));
-      // fluent.NavigationBody.builder(
-      //         index: DateTime.now().millisecondsSinceEpoch,
-      //         itemBuilder: (context, _i) => fluent.ScaffoldPage(
-      //             header: const fluent.PageHeader(
-      //               title: Text('sohcah - Activity - 05/02/2022'),
-      //             ),
-      //             content: child)));
     }
     if (Common.style == 'macos') {
       return macos.MacosWindow(
@@ -311,7 +234,7 @@ class _PageState extends State<Page> {
     var materialDrawer = material.Drawer(
       child: material.ListView(
         children: <material.Widget>[
-          material.DrawerHeader(
+          const material.DrawerHeader(
             child: Text('Drawer Header'),
             decoration: material.BoxDecoration(
               color: material.Colors.blue,

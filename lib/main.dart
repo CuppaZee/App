@@ -12,7 +12,6 @@ import 'package:cuppazee/common/common.dart' show Common;
 
 import 'package:yaru/yaru.dart';
 
-final RouteObserver<ModalRoute> routeObserver = RouteObserver<ModalRoute>();
 void main() {
   runApp(BlocProvider(
     create: (_) => common.NavCubit(),
@@ -22,6 +21,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   final GlobalKey<NavigatorState> _navigator = GlobalKey<NavigatorState>();
+
   MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
@@ -55,12 +55,12 @@ class MyApp extends StatelessWidget {
         color: fluent.Colors.white,
         home: MyHomePage(title: title),
         builder: (context, child) {
-          return common.Page(child: child ?? Container(), title: 'CuppaZee', navigator: _navigator);
+          return common.Page(
+              child: child ?? Container(),
+              title: 'CuppaZee',
+              navigator: _navigator);
         },
         navigatorKey: _navigator,
-        navigatorObservers: [
-          routeObserver,
-        ],
       );
     }
     if (Common.style == "cupertino") {
@@ -152,11 +152,13 @@ class _MyHomePageState extends State<MyHomePage> {
         common.Button(
             child: Text('Something else'),
             onPressed: () => {
-              common.Nav.push(
+                  common.Nav.push(
                     context,
-                    common.PageRoute.build((context) => const MyOtherPage(
-                          title: 'w',
-                        ), "/other"),
+                    common.PageRoute.build(
+                        (context) => const MyOtherPage(
+                              title: 'w',
+                            ),
+                        "/other"),
                   )
                 }),
         common.Button(
@@ -183,11 +185,6 @@ class _MyOtherPageState extends State<MyOtherPage> {
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
     });
   }
@@ -228,7 +225,7 @@ class _MyOtherPageState extends State<MyOtherPage> {
         common.Button(
             child: Text('Something else'),
             onPressed: () => {
-              common.Nav.push(
+                  common.Nav.push(
                     context,
                     common.PageRoute.build(
                         (context) => const MyHomePage(title: 'Idk'), "main"),
